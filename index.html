@@ -2,1577 +2,639 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>하트의 계이름 오페라</title>
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no,
+               viewport-fit=cover">
+
+<meta name="theme-color" content="#241827">
+
+<title>하트의 계이름 모험</title>
 
 <style>
 
+/* =====================================================
+   기본 설정
+===================================================== */
+
 * {
     box-sizing: border-box;
-    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 html,
 body {
     margin: 0;
+    padding: 0;
     width: 100%;
     min-height: 100%;
 }
 
 body {
-    background: #140d1b;
+    background: #19131d;
+    color: #ffffff;
     font-family:
-        "Arial Rounded MT Bold",
-        "Malgun Gothic",
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
         sans-serif;
 
-    color: #fff;
+    overflow-x: hidden;
 }
 
 button {
-    font-family: inherit;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
+        sans-serif;
 }
 
 
-/* =========================================
-   전체
-========================================= */
+/* =====================================================
+   게임 전체
+===================================================== */
 
-#app {
+#game {
+    position: relative;
 
-    width: min(1150px, 100%);
+    width: 100%;
     min-height: 100vh;
-
-    margin: auto;
-
-    background: #24172c;
+    min-height: 100svh;
 
     overflow: hidden;
-
-    box-shadow:
-        0 0 80px rgba(0,0,0,.65);
-}
-
-
-/* =========================================
-   상단
-========================================= */
-
-.header {
-
-    height: 80px;
-
-    padding:
-        10px 24px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    background:
-        linear-gradient(
-            #39213f,
-            #21142a
-        );
-
-    border-bottom:
-        4px solid #c89a56;
-}
-
-.title {
-
-    color: #ffda83;
-
-    font-size:
-        clamp(25px, 4vw, 42px);
-
-    font-weight: 900;
-
-    letter-spacing: -2px;
-
-    text-shadow:
-        2px 3px 0 #704354;
-}
-
-.score-box {
-
-    padding:
-        8px 17px;
-
-    border:
-        3px solid #dda85e;
-
-    border-radius:
-        18px;
-
-    background:
-        #fff8e9;
-
-    color:
-        #5b3d38;
-
-    font-size:
-        16px;
-
-    font-weight:
-        900;
-
-    box-shadow:
-        0 5px 0 #95663e;
-}
-
-#score {
-
-    color:
-        #d94f6e;
-
-    font-size:
-        27px;
-}
-
-
-/* =========================================
-   문제 영역
-========================================= */
-
-.question-box {
-
-    padding:
-        12px 15px 17px;
-
-    background:
-        radial-gradient(
-            circle at 50% 0%,
-            #fffdf6,
-            #f6e4cf
-        );
-
-    text-align:
-        center;
-
-    border-bottom:
-        5px solid #95633e;
-}
-
-.instruction {
-
-    color:
-        #896256;
-
-    font-size:
-        16px;
-
-    font-weight:
-        900;
-}
-
-.question-title {
-
-    margin:
-        3px 0 0;
-
-    color:
-        #5b3738;
-
-    font-size:
-        clamp(23px, 4vw, 34px);
-
-    font-weight:
-        900;
-}
-
-.question-title span {
-
-    color:
-        #db5572;
-}
-
-
-/* =========================================
-   오선
-========================================= */
-
-.quiz-staff {
-
-    width:
-        min(850px, 100%);
-
-    height:
-        170px;
-
-    display:
-        block;
-
-    margin:
-        0 auto;
-}
-
-.staff-line {
-
-    stroke:
-        #302727;
-
-    stroke-width:
-        3;
-}
-
-.clef {
-
-    font-family:
-        "Times New Roman",
-        serif;
-
-    font-size:
-        106px;
-
-    fill:
-        #2c2424;
-}
-
-
-/* 음표 머리 */
-
-.quiz-note {
-
-    fill:
-        #fffaf0;
-
-    stroke:
-        #201c1c;
-
-    stroke-width:
-        3.5;
-}
-
-
-/* 도의 덧줄 */
-
-.quiz-ledger {
-
-    stroke:
-        #201c1c;
-
-    stroke-width:
-        3;
-
-    stroke-linecap:
-        round;
-}
-
-
-/* =========================================
-   보기
-========================================= */
-
-.answers {
-
-    width:
-        min(760px, 100%);
-
-    margin:
-        0 auto;
-
-    display:
-        grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap:
-        12px;
-}
-
-.answer {
-
-    padding:
-        12px 5px;
-
-    border:
-        3px solid #d88967;
-
-    border-radius:
-        17px;
-
-    background:
-        linear-gradient(
-            #ffe8d5,
-            #ffd0c2
-        );
-
-    color:
-        #593437;
-
-    font-size:
-        clamp(18px, 3vw, 26px);
-
-    font-weight:
-        900;
-
-    cursor:
-        pointer;
-
-    box-shadow:
-        0 5px 0 #a96354;
-
-    transition:
-        transform .1s;
-}
-
-.answer:hover {
-
-    transform:
-        translateY(-2px);
-}
-
-.answer:active {
-
-    transform:
-        translateY(4px);
-
-    box-shadow:
-        0 2px 0 #a96354;
-}
-
-.answer.correct {
-
-    background:
-        #c9f1d0;
-
-    border-color:
-        #70ad7b;
-
-    box-shadow:
-        0 5px 0 #4e895d;
-}
-
-.answer.wrong {
-
-    background:
-        #ffafb9;
-
-    border-color:
-        #cd596c;
-
-    box-shadow:
-        0 5px 0 #a94357;
-}
-
-
-/* =========================================
-   오페라 극장
-========================================= */
-
-.world {
-
-    position:
-        relative;
-
-    height:
-        390px;
-
-    overflow:
-        hidden;
-
-    background:
-        radial-gradient(
-            ellipse at 50% 20%,
-            #66365f 0%,
-            #2c1833 43%,
-            #120b17 100%
-        );
-}
-
-
-/* 조명 */
-
-.spotlight {
-
-    position:
-        absolute;
-
-    top:
-        -40px;
-
-    width:
-        250px;
-
-    height:
-        430px;
-
-    opacity:
-        .24;
 
     background:
         linear-gradient(
             180deg,
-            rgba(255,241,194,.8),
-            rgba(255,241,194,0)
-        );
-
-    clip-path:
-        polygon(
-            38% 0,
-            62% 0,
-            100% 100%,
-            0 100%
+            #30223a 0%,
+            #211923 55%,
+            #171119 100%
         );
 }
 
-.spotlight.left {
 
-    left:
-        4%;
+/* =====================================================
+   오페라 극장 배경
+===================================================== */
 
-    transform:
-        rotate(-13deg);
-}
+.theater {
+    position: absolute;
+    inset: 0;
 
-.spotlight.center {
-
-    left:
-        38%;
-
-    width:
-        290px;
-
-    opacity:
-        .32;
-}
-
-.spotlight.right {
-
-    right:
-        4%;
-
-    transform:
-        rotate(13deg);
+    pointer-events: none;
 }
 
 
-/* 무대 아치 */
+/* 천장 */
 
-.arch {
+.ceiling {
+    position: absolute;
 
-    position:
-        absolute;
+    top: 0;
+    left: 0;
+    right: 0;
 
-    left:
-        4%;
+    height: 55px;
 
-    right:
-        4%;
-
-    top:
-        -90px;
-
-    height:
-        170px;
-
-    border:
-        10px solid #c3914e;
-
-    border-radius:
-        50% 50% 0 0;
-
-    box-shadow:
-        inset 0 0 0 6px #6e452e,
-        0 0 20px rgba(255,200,100,.18);
+    background: #181219;
 }
 
 
-/* =========================================
-   커튼
-========================================= */
+/* 무대 */
 
-.curtain {
+.stage {
+    position: absolute;
 
-    position:
-        absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
 
-    top:
-        0;
-
-    width:
-        18%;
-
-    height:
-        275px;
+    height: 28%;
 
     background:
         linear-gradient(
+            rgba(255,255,255,.04),
+            rgba(0,0,0,.3)
+        ),
+        #421b2a;
+}
+
+
+/* 커튼 */
+
+.curtain {
+    position: absolute;
+
+    top: 45px;
+
+    width: 18%;
+    height: 52%;
+
+    background:
+        repeating-linear-gradient(
             90deg,
-            #5c1b2f,
-            #a63c4d 35%,
-            #681d31 70%,
-            #3d1426
+            #7d1630 0px,
+            #681126 14px,
+            #9d1e3d 28px
         );
-
-    z-index:
-        5;
-
-    box-shadow:
-        inset -15px 0 18px rgba(0,0,0,.35);
 }
 
 .curtain.left {
+    left: 0;
 
-    left:
-        0;
-
-    clip-path:
-        polygon(
-            0 0,
-            100% 0,
-            83% 35%,
-            100% 100%,
-            0 84%
-        );
+    border-radius:
+        0 0 70% 0;
 }
 
 .curtain.right {
-
-    right:
-        0;
-
-    transform:
-        scaleX(-1);
-}
-
-.curtain-fold {
-
-    position:
-        absolute;
-
-    top:
-        0;
-
-    width:
-        10px;
-
-    height:
-        240px;
-
-    background:
-        rgba(255,210,190,.1);
+    right: 0;
 
     border-radius:
-        50%;
-}
-
-.curtain-fold.f1 {
-    left: 30%;
-}
-
-.curtain-fold.f2 {
-    left: 50%;
-}
-
-.curtain-fold.f3 {
-    left: 70%;
+        0 0 0 70%;
 }
 
 
-/* =========================================
-   무대 바닥
-========================================= */
+/* 중앙 아치 */
 
-.stage-floor {
+.arch {
+    position: absolute;
 
-    position:
-        absolute;
+    top: 65px;
+    left: 17%;
+    right: 17%;
 
-    left:
-        0;
-
-    right:
-        0;
-
-    bottom:
-        80px;
-
-    height:
-        55px;
-
-    background:
-        linear-gradient(
-            #c99a55,
-            #805d39
-        );
-
-    border-top:
-        6px solid #e4bb73;
-
-    z-index:
-        8;
-}
-
-
-/* =========================================
-   객석
-========================================= */
-
-.seat-area {
-
-    position:
-        absolute;
-
-    left:
-        0;
-
-    right:
-        0;
-
-    bottom:
-        0;
-
-    height:
-        105px;
-
-    background:
-        linear-gradient(
-            #321928,
-            #180d16
-        );
-
-    z-index:
-        2;
-}
-
-.seats {
-
-    position:
-        absolute;
-
-    left:
-        8%;
-
-    right:
-        8%;
-
-    bottom:
-        18px;
-
-    height:
-        62px;
-
-    display:
-        flex;
-
-    justify-content:
-        space-around;
-
-    align-items:
-        end;
-}
-
-.seat {
-
-    width:
-        48px;
-
-    height:
-        48px;
-
-    background:
-        linear-gradient(
-            #7e3445,
-            #481a2a
-        );
-
-    border-radius:
-        18px 18px 7px 7px;
+    height: 46%;
 
     border:
-        2px solid #a65a5f;
+        12px solid #9b7040;
 
-    box-shadow:
-        0 5px 0 #24121b;
-}
-
-
-/* =========================================
-   귀여운 하트
-========================================= */
-
-.heart-runner {
-
-    position:
-        absolute;
-
-    left:
-        10%;
-
-    bottom:
-        110px;
-
-    width:
-        135px;
-
-    height:
-        150px;
-
-    z-index:
-        25;
-}
-
-.heart-svg {
-
-    position:
-        absolute;
-
-    left:
-        12px;
-
-    top:
-        39px;
-
-    width:
-        110px;
-
-    height:
-        105px;
-
-    overflow:
-        visible;
-
-    filter:
-        drop-shadow(
-            4px 7px 0 rgba(70,20,40,.25)
-        );
-}
-
-.heart-body {
-
-    fill:
-        url(#heartGradient);
-
-    stroke:
-        #b83e61;
-
-    stroke-width:
-        3.5;
-
-    stroke-linejoin:
-        round;
-}
-
-
-/* =========================================
-   하트 얼굴
-========================================= */
-
-.heart-face {
-
-    position:
-        absolute;
-
-    left:
-        39px;
-
-    top:
-        78px;
-
-    width:
-        60px;
-
-    height:
-        43px;
-
-    z-index:
-        40;
-}
-
-.eye {
-
-    position:
-        absolute;
-
-    top:
-        3px;
-
-    width:
-        9px;
-
-    height:
-        13px;
-
-    background:
-        #43232d;
+    border-bottom: none;
 
     border-radius:
-        50%;
+        50% 50% 0 0;
 }
 
-.eye.left {
-    left: 7px;
+
+/* 무대 안쪽 */
+
+.backstage {
+    position: absolute;
+
+    top: 90px;
+    left: 21%;
+    right: 21%;
+
+    height: 42%;
+
+    background:
+        radial-gradient(
+            circle at 50% 25%,
+            rgba(255,239,160,.55),
+            transparent 27%
+        ),
+        #18131d;
 }
 
-.eye.right {
-    right: 7px;
-}
 
-.eye::after {
+/* =====================================================
+   상단 제목
+===================================================== */
 
-    content:
-        "";
+.header {
+    position: relative;
 
-    position:
-        absolute;
+    z-index: 20;
 
-    left:
-        2px;
-
-    top:
-        2px;
-
-    width:
-        3px;
-
-    height:
+    padding:
+        max(12px, env(safe-area-inset-top))
+        12px
         4px;
 
-    background:
-        white;
-
-    border-radius:
-        50%;
+    text-align: center;
 }
 
-.blush {
+.title {
+    margin: 0;
 
-    position:
-        absolute;
+    font-size: clamp(
+        24px,
+        7vw,
+        43px
+    );
 
-    top:
-        25px;
+    font-weight: 800;
 
-    width:
-        17px;
+    color: #fff0a6;
 
-    height:
-        8px;
-
-    background:
-        #ff9aaa;
-
-    border-radius:
-        50%;
-
-    opacity:
-        .85;
+    text-shadow:
+        2px 2px 0 #692b45;
 }
 
-.blush.left {
-    left: -2px;
+.info {
+    margin-top: 8px;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
 }
 
-.blush.right {
-    right: -2px;
-}
+.badge {
+    padding: 5px 12px;
 
-.smile {
-
-    position:
-        absolute;
-
-    left:
-        22px;
-
-    top:
-        17px;
-
-    width:
-        17px;
-
-    height:
-        12px;
-
-    border-bottom:
-        3px solid #71313d;
-
-    border-radius:
-        0 0 50% 50%;
-}
-
-
-/* =========================================
-   마술사 모자
-========================================= */
-
-.magic-hat {
-
-    position:
-        absolute;
-
-    left:
-        18px;
-
-    top:
-        1px;
-
-    width:
-        98px;
-
-    height:
-        38px;
-
-    z-index:
-        50;
-
-    transform:
-        rotate(-5deg);
-}
-
-.hat-brim {
-
-    position:
-        absolute;
-
-    left:
-        0;
-
-    bottom:
-        0;
-
-    width:
-        98px;
-
-    height:
-        23px;
+    border-radius: 30px;
 
     background:
-        #51418e;
+        rgba(0,0,0,.42);
 
     border:
-        3px solid #2d2458;
+        1px solid
+        rgba(255,255,255,.2);
 
-    border-radius:
-        50%;
+    font-size: 14px;
 }
 
-.hat-crown {
 
-    position:
-        absolute;
+/* =====================================================
+   시작 버튼
+===================================================== */
 
-    left:
-        27px;
+.start-screen {
+    position: fixed;
 
-    bottom:
-        12px;
+    z-index: 200;
 
-    width:
-        47px;
+    inset: 0;
 
-    height:
-        67px;
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
 
     background:
-        linear-gradient(
-            135deg,
-            #7662c2,
-            #3c306e
-        );
-
-    clip-path:
-        polygon(
-            47% 0,
-            100% 100%,
-            0 100%
-        );
-
-    border-radius:
-        20px 20px 4px 4px;
-
-    transform:
-        rotate(5deg);
+        rgba(20,12,24,.96);
 }
 
-.hat-band {
+.start-box {
+    width: min(
+        90vw,
+        520px
+    );
 
-    position:
-        absolute;
+    padding: 30px 20px;
 
-    left:
-        25px;
+    text-align: center;
 
-    bottom:
-        12px;
+    border-radius: 26px;
 
-    width:
-        50px;
+    background: #fff7dc;
 
-    height:
-        8px;
+    color: #472536;
 
-    background:
-        #f5c858;
-
-    z-index:
-        3;
-
-    border-radius:
-        5px;
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.5);
 }
 
-.hat-star {
-
-    position:
-        absolute;
-
-    left:
-        45px;
-
-    bottom:
-        18px;
-
-    color:
-        #ffe28a;
+.start-box h1 {
+    margin: 0 0 12px;
 
     font-size:
-        14px;
+        clamp(30px, 8vw, 48px);
 
-    z-index:
-        5;
+    color: #d9436b;
+}
+
+.start-box p {
+    margin: 8px 0;
+
+    font-size:
+        clamp(17px, 4.5vw, 21px);
+
+    line-height: 1.5;
+}
+
+.start-button {
+    margin-top: 18px;
+
+    border: none;
+
+    border-radius: 18px;
+
+    padding:
+        15px 30px;
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    color: white;
+
+    background: #ef527c;
+
+    box-shadow:
+        0 5px 0 #b83258;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+.start-button:active {
+    transform: translateY(4px);
+
+    box-shadow:
+        0 1px 0 #b83258;
 }
 
 
-/* =========================================
-   정답
-   하트가 마녀를 물리침
-========================================= */
+/* =====================================================
+   오선
+===================================================== */
 
-.heart-attack {
+.score-area {
+    position: relative;
 
-    animation:
-        heartAttack .85s ease forwards;
-}
-
-@keyframes heartAttack {
-
-    0% {
-        transform:
-            translateX(0)
-            rotate(0)
-            scale(1);
-    }
-
-    35% {
-        transform:
-            translateX(45px)
-            rotate(-8deg)
-            scale(1.08);
-    }
-
-    65% {
-        transform:
-            translateX(105px)
-            rotate(8deg)
-            scale(1.15);
-    }
-
-    100% {
-        transform:
-            translateX(0)
-            rotate(0)
-            scale(1);
-    }
-}
-
-
-/* =========================================
-   하트 점프
-========================================= */
-
-.jump {
-
-    animation:
-        heartJump .75s ease;
-}
-
-@keyframes heartJump {
-
-    0% {
-        bottom:
-            110px;
-    }
-
-    40% {
-        bottom:
-            210px;
-
-        transform:
-            rotate(-6deg)
-            scale(1.05);
-    }
-
-    70% {
-
-        bottom:
-            195px;
-
-        transform:
-            rotate(6deg)
-            scale(1.05);
-    }
-
-    100% {
-
-        bottom:
-            110px;
-
-        transform:
-            rotate(0)
-            scale(1);
-    }
-}
-
-
-/* =========================================
-   마녀
-========================================= */
-
-.witch {
-
-    position:
-        absolute;
-
-    right:
-        -190px;
-
-    bottom:
-        145px;
+    z-index: 10;
 
     width:
-        170px;
+        calc(100% - 12px);
 
-    height:
-        135px;
+    max-width: 820px;
 
-    z-index:
-        30;
+    margin:
+        10px auto 8px;
 
-    display:
-        none;
+    padding: 5px;
+
+    border-radius: 16px;
+
+    background: #fff;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.4);
+}
+
+#staff {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
 }
 
 
-/* =========================================
-   정답:
-   마녀 퇴치
-========================================= */
+/* =====================================================
+   문제
+===================================================== */
 
-.witch.defeated {
+.question {
+    position: relative;
 
-    display:
-        block;
+    z-index: 30;
 
-    animation:
-        witchDefeat 1s ease forwards;
+    text-align: center;
 }
 
-@keyframes witchDefeat {
+.question-text {
+    font-size:
+        clamp(19px, 5vw, 28px);
 
-    0% {
+    font-weight: 700;
+}
 
-        right:
-            7%;
+.message {
+    position: relative;
 
-        opacity:
-            1;
+    z-index: 30;
 
-        transform:
-            rotate(0)
-            scale(1);
-    }
+    min-height: 32px;
 
-    30% {
+    padding:
+        2px 10px;
 
-        right:
-            10%;
+    text-align: center;
 
-        transform:
-            rotate(-10deg)
-            scale(1.08);
-    }
-
-    55% {
-
-        right:
-            16%;
-
-        transform:
-            rotate(12deg)
-            scale(.95);
-    }
-
-    100% {
-
-        right:
-            -220px;
-
-        opacity:
-            0;
-
-        transform:
-            rotate(35deg)
-            scale(.5);
-    }
+    font-size:
+        clamp(17px, 4.5vw, 23px);
 }
 
 
-/* =========================================
-   오답:
-   마녀가 하트와 꽝 충돌
-========================================= */
+/* =====================================================
+   정답 버튼
+===================================================== */
 
-.witch.crash {
+.answer-buttons {
+    position: relative;
 
-    display:
-        block;
+    z-index: 40;
 
-    animation:
-        witchCrash .9s ease-in forwards;
-}
+    display: grid;
 
-@keyframes witchCrash {
+    grid-template-columns:
+        repeat(4, 1fr);
 
-    0% {
-
-        right:
-            -190px;
-
-        transform:
-            translateY(0)
-            rotate(0)
-            scale(.9);
-    }
-
-    35% {
-
-        right:
-            30%;
-
-        transform:
-            translateY(-20px)
-            rotate(-7deg)
-            scale(1);
-    }
-
-    65% {
-
-        right:
-            17%;
-
-        transform:
-            translateY(5px)
-            rotate(7deg)
-            scale(1.05);
-    }
-
-    100% {
-
-        right:
-            8%;
-
-        transform:
-            translateY(0)
-            rotate(10deg)
-            scale(1.15);
-    }
-}
-
-
-/* =========================================
-   빗자루
-========================================= */
-
-.broom {
-
-    position:
-        absolute;
-
-    left:
-        10px;
-
-    top:
-        103px;
+    gap: 7px;
 
     width:
-        150px;
+        calc(100% - 16px);
 
-    height:
-        8px;
+    max-width: 650px;
 
-    background:
-        #70462c;
+    margin:
+        7px auto 18px;
+}
+
+.answer-buttons button {
+    min-height: 52px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #fff2bd;
+
+    color: #492437;
+
+    font-size:
+        clamp(17px, 4.8vw, 25px);
+
+    font-weight: 700;
+
+    box-shadow:
+        0 4px 0 #c9a44f;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+.answer-buttons button:active {
+    transform: translateY(3px);
+
+    box-shadow:
+        0 1px 0 #c9a44f;
+}
+
+
+/* =====================================================
+   하트
+===================================================== */
+
+.runner {
+    position: absolute;
+
+    z-index: 25;
+
+    left: 6%;
+    bottom: 21%;
+
+    width: 75px;
+    height: 95px;
+
+    transition:
+        left .55s ease;
+}
+
+.heart {
+    position: absolute;
+
+    left: 8px;
+    bottom: 0;
+
+    width: 58px;
+    height: 58px;
+
+    background: #ff527f;
+
+    transform:
+        rotate(-45deg);
 
     border-radius:
-        10px;
+        16px;
+
+    box-shadow:
+        0 5px 0 #b82f58;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 58px;
+    height: 58px;
+
+    background: #ff527f;
+
+    border-radius: 50%;
+}
+
+.heart::before {
+    top: -29px;
+    left: 0;
+}
+
+.heart::after {
+    top: 0;
+    left: 29px;
+}
+
+
+/* 모자 */
+
+.hat {
+    position: absolute;
+
+    z-index: 4;
+
+    top: 0;
+    left: 2px;
+
+    width: 67px;
+    height: 32px;
+
+    background: #47305b;
+
+    border-radius:
+        50% 50% 10% 10%;
 
     transform:
         rotate(-7deg);
 }
 
-.broom::after {
+.hat::after {
+    content: "";
 
-    content:
-        "";
+    position: absolute;
 
-    position:
-        absolute;
+    left: -8px;
+    bottom: -6px;
 
-    right:
-        -18px;
+    width: 83px;
+    height: 11px;
 
-    top:
-        -13px;
+    border-radius: 50%;
 
-    width:
-        42px;
+    background: #332343;
+}
 
-    height:
-        34px;
+.star {
+    position: absolute;
 
-    background:
-        repeating-linear-gradient(
-            80deg,
-            #c98539 0 5px,
-            #e0a34e 5px 9px
-        );
+    top: 4px;
+    left: 29px;
 
-    clip-path:
-        polygon(
-            0 35%,
-            100% 0,
-            88% 100%,
-            5% 75%
-        );
+    color: #ffe888;
+
+    font-size: 17px;
 }
 
 
-/* =========================================
-   마녀 몸
-========================================= */
+/* =====================================================
+   마녀
+===================================================== */
 
-.witch-cape {
+.witch {
+    position: absolute;
 
-    position:
-        absolute;
+    z-index: 24;
 
-    left:
-        52px;
+    right: 7%;
+    bottom: 20%;
 
-    top:
-        52px;
+    width: 90px;
+    height: 125px;
 
-    width:
-        76px;
-
-    height:
-        73px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #51448b,
-            #292246
-        );
-
-    clip-path:
-        polygon(
-            20% 0,
-            80% 0,
-            100% 100%,
-            50% 77%,
-            0 100%
-        );
+    transition:
+        transform .25s ease;
 }
-
-
-/* 머리카락 */
-
-.witch-hair {
-
-    position:
-        absolute;
-
-    left:
-        55px;
-
-    top:
-        27px;
-
-    width:
-        63px;
-
-    height:
-        67px;
-
-    background:
-        #34223d;
-
-    border-radius:
-        50% 50% 42% 42%;
-
-    z-index:
-        4;
-}
-
-
-/* 얼굴 */
-
-.witch-head {
-
-    position:
-        absolute;
-
-    left:
-        64px;
-
-    top:
-        35px;
-
-    width:
-        49px;
-
-    height:
-        52px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ffd9c4,
-            #efb096
-        );
-
-    border:
-        3px solid #a66b63;
-
-    border-radius:
-        48%;
-
-    z-index:
-        10;
-}
-
-.witch-eye {
-
-    position:
-        absolute;
-
-    top:
-        18px;
-
-    width:
-        7px;
-
-    height:
-        9px;
-
-    background:
-        #3c263d;
-
-    border-radius:
-        50%;
-}
-
-.witch-eye.left {
-    left: 10px;
-}
-
-.witch-eye.right {
-    right: 10px;
-}
-
-.witch-smile {
-
-    position:
-        absolute;
-
-    left:
-        17px;
-
-    top:
-        32px;
-
-    width:
-        15px;
-
-    height:
-        8px;
-
-    border-bottom:
-        2px solid #71313e;
-
-    border-radius:
-        50%;
-}
-
-
-/* =========================================
-   마녀 모자
-========================================= */
 
 .witch-hat {
+    position: absolute;
 
-    position:
-        absolute;
+    z-index: 5;
 
-    left:
-        43px;
+    top: 0;
+    left: 6px;
 
-    top:
-        3px;
+    width: 74px;
+    height: 46px;
 
-    width:
-        94px;
-
-    height:
-        28px;
-
-    background:
-        #302747;
-
-    border:
-        3px solid #1d182e;
-
-    border-radius:
-        50%;
-
-    z-index:
-        30;
-}
-
-.witch-hat::before {
-
-    content:
-        "";
-
-    position:
-        absolute;
-
-    left:
-        27px;
-
-    bottom:
-        12px;
-
-    width:
-        41px;
-
-    height:
-        70px;
-
-    background:
-        linear-gradient(
-            135deg,
-            #554582,
-            #29213e
-        );
+    background: #24172e;
 
     clip-path:
         polygon(
@@ -1580,762 +642,370 @@ button {
             100% 100%,
             0 100%
         );
-
-    transform:
-        rotate(6deg);
 }
 
 .witch-hat::after {
+    content: "";
 
-    content:
-        "";
+    position: absolute;
 
-    position:
-        absolute;
+    left: -10px;
+    bottom: -5px;
 
-    left:
-        4px;
+    width: 94px;
+    height: 13px;
 
-    right:
-        4px;
+    background: #24172e;
 
-    bottom:
-        3px;
+    border-radius: 50%;
+}
 
-    height:
-        6px;
+.witch-head {
+    position: absolute;
 
-    background:
-        #d278b5;
+    z-index: 4;
+
+    top: 36px;
+    left: 18px;
+
+    width: 57px;
+    height: 54px;
+
+    background: #d79a91;
+
+    border-radius: 50%;
+}
+
+.witch-eye {
+    position: absolute;
+
+    top: 21px;
+
+    width: 6px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: #241622;
+}
+
+.witch-eye.left {
+    left: 15px;
+}
+
+.witch-eye.right {
+    right: 15px;
+}
+
+.witch-body {
+    position: absolute;
+
+    bottom: 0;
+    left: 19px;
+
+    width: 57px;
+    height: 62px;
+
+    background: #30203c;
 
     border-radius:
-        5px;
+        45% 45% 18% 18%;
 }
 
+.wand {
+    position: absolute;
 
-/* =========================================
-   충돌 효과
-========================================= */
+    z-index: 8;
 
-.crash-flash {
+    top: 66px;
+    right: -12px;
 
-    position:
-        absolute;
+    width: 65px;
+    height: 4px;
 
-    left:
-        50%;
-
-    top:
-        45%;
+    background: #70472a;
 
     transform:
-        translate(-50%, -50%);
+        rotate(-25deg);
 
-    z-index:
-        90;
-
-    font-size:
-        70px;
-
-    opacity:
-        0;
-
-    pointer-events:
-        none;
+    transform-origin:
+        left center;
 }
 
-.crash-flash.show {
+.wand::after {
+    content: "★";
 
+    position: absolute;
+
+    right: -12px;
+    top: -14px;
+
+    color: #fff16c;
+
+    font-size: 25px;
+}
+
+
+/* =====================================================
+   번개
+===================================================== */
+
+.lightning {
+    position: absolute;
+
+    z-index: 50;
+
+    right: 20%;
+    bottom: 29%;
+
+    color: #fff16a;
+
+    font-size: 45px;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+.lightning.show {
     animation:
-        crashFlash .8s ease forwards;
+        lightningAttack
+        .6s ease forwards;
 }
 
-@keyframes crashFlash {
+@keyframes lightningAttack {
 
     0% {
-
-        opacity:
-            0;
+        opacity: 0;
 
         transform:
-            translate(-50%, -50%)
-            scale(.3)
-            rotate(-20deg);
-    }
-
-    25% {
-
-        opacity:
-            1;
-
-        transform:
-            translate(-50%, -50%)
-            scale(1.25)
-            rotate(10deg);
-    }
-
-    70% {
-
-        opacity:
-            1;
-
-        transform:
-            translate(-50%, -50%)
-            scale(1)
-            rotate(-5deg);
-    }
-
-    100% {
-
-        opacity:
-            0;
-
-        transform:
-            translate(-50%, -50%)
-            scale(1.4);
-    }
-}
-
-
-/* =========================================
-   정답 효과
-========================================= */
-
-.victory-flash {
-
-    position:
-        absolute;
-
-    left:
-        50%;
-
-    top:
-        43%;
-
-    transform:
-        translate(-50%, -50%);
-
-    z-index:
-        90;
-
-    font-size:
-        60px;
-
-    opacity:
-        0;
-
-    pointer-events:
-        none;
-}
-
-.victory-flash.show {
-
-    animation:
-        victoryFlash .8s ease forwards;
-}
-
-@keyframes victoryFlash {
-
-    0% {
-
-        opacity:
-            0;
-
-        transform:
-            translate(-50%, -50%)
+            translateX(0)
             scale(.3);
     }
 
-    30% {
-
-        opacity:
-            1;
+    35% {
+        opacity: 1;
 
         transform:
-            translate(-50%, -50%)
-            scale(1.2);
-    }
-
-    75% {
-
-        opacity:
-            1;
-    }
-
-    100% {
-
-        opacity:
-            0;
-
-        transform:
-            translate(-50%, -50%)
-            scale(1.4);
-    }
-}
-
-
-/* =========================================
-   메시지
-========================================= */
-
-.message {
-
-    position:
-        absolute;
-
-    left:
-        50%;
-
-    top:
-        40%;
-
-    transform:
-        translate(-50%, -50%)
-        scale(.7);
-
-    padding:
-        13px 28px;
-
-    background:
-        #fff9eb;
-
-    border:
-        5px solid #e0a458;
-
-    border-radius:
-        24px;
-
-    color:
-        #c54f69;
-
-    font-size:
-        27px;
-
-    font-weight:
-        900;
-
-    opacity:
-        0;
-
-    pointer-events:
-        none;
-
-    z-index:
-        80;
-
-    white-space:
-        nowrap;
-}
-
-.message.show {
-
-    animation:
-        popMessage 1s ease forwards;
-}
-
-@keyframes popMessage {
-
-    0% {
-
-        opacity:
-            0;
-
-        transform:
-            translate(-50%, -50%)
-            scale(.7);
-    }
-
-    20% {
-
-        opacity:
-            1;
-
-        transform:
-            translate(-50%, -50%)
-            scale(1.08);
-    }
-
-    80% {
-
-        opacity:
-            1;
-    }
-
-    100% {
-
-        opacity:
-            0;
-
-        transform:
-            translate(-50%, -50%)
-            scale(1);
-    }
-}
-
-
-/* =========================================
-   오버레이
-========================================= */
-
-.overlay {
-
-    position:
-        fixed;
-
-    inset:
-        0;
-
-    z-index:
-        100;
-
-    display:
-        flex;
-
-    align-items:
-        center;
-
-    justify-content:
-        center;
-
-    padding:
-        20px;
-
-    background:
-        rgba(22,13,25,.88);
-}
-
-.modal {
-
-    width:
-        min(570px, 94vw);
-
-    padding:
-        30px 25px;
-
-    background:
-        linear-gradient(
-            #fffaf0,
-            #f8e6d3
-        );
-
-    border:
-        6px solid #d8a158;
-
-    border-radius:
-        32px;
-
-    text-align:
-        center;
-
-    color:
-        #593b38;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.5);
-
-    animation:
-        modalPop .35s ease;
-}
-
-@keyframes modalPop {
-
-    from {
-
-        transform:
-            scale(.8);
-
-        opacity:
-            0;
-    }
-
-    to {
-
-        transform:
-            scale(1);
-
-        opacity:
-            1;
-    }
-}
-
-.modal h1 {
-
-    margin:
-        5px 0 12px;
-
-    color:
-        #ce5570;
-
-    font-size:
-        38px;
-}
-
-.modal p {
-
-    line-height:
-        1.7;
-
-    font-weight:
-        900;
-}
-
-.start-btn {
-
-    margin-top:
-        8px;
-
-    padding:
-        14px 38px;
-
-    border:
-        0;
-
-    border-radius:
-        20px;
-
-    background:
-        linear-gradient(
-            #f4859c,
-            #dc5d79
-        );
-
-    color:
-        white;
-
-    font-size:
-        21px;
-
-    font-weight:
-        900;
-
-    cursor:
-        pointer;
-
-    box-shadow:
-        0 6px 0 #9e4055;
-}
-
-.start-btn:active {
-
-    transform:
-        translateY(4px);
-
-    box-shadow:
-        0 2px 0 #9e4055;
-}
-
-.hidden {
-
-    display:
-        none !important;
-}
-
-
-/* =========================================
-   시작 하트
-========================================= */
-
-.big-heart {
-
-    font-size:
-        85px;
-
-    animation:
-        heartBeat .7s infinite alternate;
-}
-
-@keyframes heartBeat {
-
-    from {
-        transform:
-            scale(1);
-    }
-
-    to {
-        transform:
+            translateX(-35px)
             scale(1.1);
     }
-}
 
-
-/* =========================================
-   성공
-========================================= */
-
-.success-heart {
-
-    font-size:
-        130px;
-
-    animation:
-        successBounce .45s infinite alternate;
-}
-
-@keyframes successBounce {
-
-    from {
+    100% {
+        opacity: 0;
 
         transform:
-            scale(1)
-            rotate(-7deg);
+            translateX(-85px)
+            scale(.7);
+    }
+}
+
+
+/* =====================================================
+   결과 화면
+===================================================== */
+
+.overlay {
+    position: fixed;
+
+    z-index: 150;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 18px;
+
+    background:
+        rgba(20,10,25,.92);
+}
+
+.overlay.show {
+    display: flex;
+}
+
+.panel {
+    width:
+        min(92vw, 600px);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    padding:
+        25px 17px;
+
+    text-align: center;
+
+    border-radius: 25px;
+
+    background: #fff7dc;
+
+    color: #472536;
+}
+
+.panel h2 {
+    margin:
+        0 0 10px;
+
+    font-size:
+        clamp(38px, 11vw, 68px);
+
+    color: #e04370;
+}
+
+.panel p {
+    font-size:
+        clamp(18px, 5vw, 23px);
+
+    line-height: 1.5;
+}
+
+.restart {
+    border: none;
+
+    border-radius: 16px;
+
+    padding:
+        13px 27px;
+
+    background: #ed537d;
+
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* 성공 하트 */
+
+.big-heart {
+    position: relative;
+
+    width: 105px;
+    height: 105px;
+
+    margin:
+        20px auto 35px;
+
+    background: #ff527f;
+
+    transform:
+        rotate(-45deg);
+
+    border-radius: 22px;
+
+    animation:
+        happy .65s
+        infinite alternate;
+}
+
+.big-heart::before,
+.big-heart::after {
+    content: "";
+
+    position: absolute;
+
+    width: 105px;
+    height: 105px;
+
+    background: #ff527f;
+
+    border-radius: 50%;
+}
+
+.big-heart::before {
+    top: -52px;
+    left: 0;
+}
+
+.big-heart::after {
+    top: 0;
+    left: 52px;
+}
+
+@keyframes happy {
+
+    from {
+        transform:
+            rotate(-45deg)
+            scale(1);
     }
 
     to {
-
         transform:
-            scale(1.15)
-            rotate(7deg);
+            rotate(-45deg)
+            scale(1.12);
     }
 }
 
 
-/* =========================================
-   복습 화면
-========================================= */
+/* =====================================================
+   복습 악보
+===================================================== */
 
-.study-card {
-
-    width:
-        min(1050px, 96vw);
-
-    padding:
-        24px 15px;
-
-    background:
-        #fffaf0;
-
-    border:
-        6px solid #d8a158;
-
-    border-radius:
-        32px;
-
-    text-align:
-        center;
-
-    color:
-        #5a3c38;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.5);
-}
-
-.study-card h1 {
+.review-score {
+    width: 100%;
 
     margin:
-        3px 0 5px;
-
-    color:
-        #cf5871;
-
-    font-size:
-        clamp(24px, 5vw, 38px);
+        12px auto;
 }
 
-.study-description {
+.review-score svg {
+    display: block;
 
-    font-weight:
-        900;
-
-    color:
-        #896252;
-}
-
-.study-time {
-
-    margin-top:
-        4px;
-
-    color:
-        #d15870;
-
-    font-weight:
-        900;
-}
-
-.study-staff {
-
-    display:
-        block;
-
-    width:
-        min(930px,100%);
-
-    height:
-        270px;
-
-    margin:
-        4px auto;
-}
-
-.study-line {
-
-    stroke:
-        #302726;
-
-    stroke-width:
-        3;
-}
-
-.study-clef {
-
-    font-family:
-        "Times New Roman",
-        serif;
-
-    font-size:
-        120px;
-
-    fill:
-        #2e2524;
-}
-
-.study-note {
-
-    fill:
-        #fffaf0;
-
-    stroke:
-        #252020;
-
-    stroke-width:
-        3.5;
-}
-
-.study-ledger {
-
-    stroke:
-        #252020;
-
-    stroke-width:
-        3;
-
-    stroke-linecap:
-        round;
-}
-
-.study-label {
-
-    text-anchor:
-        middle;
-
-    fill:
-        #59413c;
-
-    font-size:
-        20px;
-
-    font-weight:
-        900;
+    width: 100%;
+    height: auto;
 }
 
 
-/* =========================================
+/* =====================================================
    모바일
-========================================= */
+===================================================== */
 
-@media(max-width:650px) {
-
-    .header {
-
-        height:
-            67px;
-
-        padding:
-            7px 12px;
-    }
+@media (max-width: 600px) {
 
     .title {
-
-        font-size:
-            22px;
+        font-size: 27px;
     }
 
-    .score-box {
-
-        padding:
-            6px 9px;
-
-        font-size:
-            12px;
+    .score-area {
+        margin-top: 7px;
     }
 
-    #score {
-
-        font-size:
-            20px;
+    .answer-buttons {
+        gap: 6px;
     }
 
-    .question-box {
+    .answer-buttons button {
+        min-height: 50px;
 
-        padding:
-            10px 6px 14px;
+        border-radius: 13px;
+
+        font-size: 18px;
     }
 
-    .instruction {
-
-        font-size:
-            13px;
-    }
-
-    .question-title {
-
-        font-size:
-            22px;
-    }
-
-    .quiz-staff {
-
-        height:
-            145px;
-    }
-
-    .answers {
-
-        gap:
-            6px;
-    }
-
-    .answer {
-
-        padding:
-            9px 2px;
-
-        font-size:
-            17px;
-    }
-
-    .world {
-
-        height:
-            330px;
-    }
-
-    .heart-runner {
-
-        left:
-            2%;
-
+    .runner {
         transform:
-            scale(.78);
+            scale(.72);
 
         transform-origin:
             bottom left;
     }
 
     .witch {
-
         transform:
-            scale(.75);
+            scale(.72);
 
         transform-origin:
             bottom right;
-    }
-
-    .curtain {
-
-        width:
-            21%;
     }
 }
 
@@ -2345,848 +1015,379 @@ button {
 
 <body>
 
-<div id="app">
+<div id="game">
 
 
-    <!-- =====================================
-         상단
-    ====================================== -->
+    <!-- =================================================
+         배경
+    ================================================= -->
+
+    <div class="theater">
+
+        <div class="ceiling"></div>
+
+        <div class="curtain left"></div>
+
+        <div class="curtain right"></div>
+
+        <div class="arch"></div>
+
+        <div class="backstage"></div>
+
+        <div class="stage"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         시작 화면
+
+         중요:
+         이 버튼을 누를 때 AudioContext를 시작한다.
+         iPhone Safari의 사용자 동작 제한을 피하기 위한 구조.
+    ================================================= -->
+
+    <div
+        class="start-screen"
+        id="startScreen">
+
+        <div class="start-box">
+
+            <h1>
+                하트의<br>
+                계이름 모험
+            </h1>
+
+            <p>
+                음표를 보고<br>
+                정확한 계이름을 맞혀보세요!
+            </p>
+
+            <p>
+                🎵 정답이면 마녀 물리치기<br>
+                ⚡ 틀리면 마녀의 번개 공격
+            </p>
+
+            <button
+                class="start-button"
+                id="startButton">
+
+                게임 시작 🎵
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         제목
+    ================================================= -->
 
     <header class="header">
 
-        <div class="title">
-            하트의 계이름 오페라 🎩
-        </div>
+        <h1 class="title">
+            하트의 계이름 모험
+        </h1>
 
-        <div class="score-box">
+        <div class="info">
 
-            정답
+            <div class="badge">
+                정답
+                <span id="correctCount">
+                    0
+                </span>
+                회
+            </div>
 
-            <span id="score">
-                0
-            </span>
-
-            / 5
+            <div class="badge">
+                실패
+                <span id="wrongCount">
+                    0
+                </span>
+                회
+            </div>
 
         </div>
 
     </header>
 
 
-    <!-- =====================================
-         문제
-    ====================================== -->
+    <!-- =================================================
+         악보
+    ================================================= -->
 
-    <section class="question-box">
-
-        <div class="instruction">
-
-            높은음자리표를 보고
-            계이름을 맞혀보세요!
-
-        </div>
-
-
-        <div class="question-title">
-
-            이 음표의 계이름은?
-
-            <span>
-                ♥
-            </span>
-
-        </div>
-
+    <div class="score-area">
 
         <svg
-            id="quizStaff"
-            class="quiz-staff"
-            viewBox="0 0 850 175">
+            id="staff"
+            viewBox="0 0 820 210"
+            preserveAspectRatio="xMidYMid meet">
 
 
             <!-- 오선 -->
 
-            <line
-                class="staff-line"
-                x1="120"
-                y1="25"
-                x2="800"
-                y2="25"
-            />
+            <g
+                stroke="#111"
+                stroke-width="2.5">
 
-            <line
-                class="staff-line"
-                x1="120"
-                y1="50"
-                x2="800"
-                y2="50"
-            />
+                <line
+                    x1="35"
+                    y1="65"
+                    x2="790"
+                    y2="65"/>
 
-            <line
-                class="staff-line"
-                x1="120"
-                y1="75"
-                x2="800"
-                y2="75"
-            />
+                <line
+                    x1="35"
+                    y1="80"
+                    x2="790"
+                    y2="80"/>
 
-            <line
-                class="staff-line"
-                x1="120"
-                y1="100"
-                x2="800"
-                y2="100"
-            />
+                <line
+                    x1="35"
+                    y1="95"
+                    x2="790"
+                    y2="95"/>
 
-            <line
-                class="staff-line"
-                x1="120"
-                y1="125"
-                x2="800"
-                y2="125"
-            />
+                <line
+                    x1="35"
+                    y1="110"
+                    x2="790"
+                    y2="110"/>
+
+                <line
+                    x1="35"
+                    y1="125"
+                    x2="790"
+                    y2="125"/>
+
+            </g>
 
 
             <!-- 높은음자리표 -->
 
             <text
-                class="clef"
-                x="45"
-                y="133">
+                x="38"
+                y="126"
+                font-family="Times New Roman, serif"
+                font-size="104"
+                fill="#111">
 
                 𝄞
 
             </text>
 
 
-            <!-- 도 덧줄 -->
+            <!-- 도 아래 덧줄 -->
 
             <line
-                id="quizLedger"
-                class="quiz-ledger"
-                x1="315"
-                y1="150"
-                x2="365"
-                y2="150"
-            />
+                id="ledger"
+                x1="70"
+                y1="140"
+                x2="120"
+                y2="140"
+                stroke="#111"
+                stroke-width="2.5"/>
 
 
             <!-- 음표 -->
 
             <ellipse
-                id="quizNote"
-                class="quiz-note"
-                cx="340"
-                cy="150"
-                rx="14"
-                ry="10"
-                transform="rotate(-12 340 150)"
-            />
-
-        </svg>
-
-
-        <div
-            id="answers"
-            class="answers">
-        </div>
-
-    </section>
-
-
-    <!-- =====================================
-         오페라 극장
-    ====================================== -->
-
-    <section class="world">
-
-
-        <div class="arch"></div>
-
-
-        <div class="spotlight left"></div>
-
-        <div class="spotlight center"></div>
-
-        <div class="spotlight right"></div>
-
-
-        <!-- 커튼 -->
-
-        <div class="curtain left">
-
-            <div class="curtain-fold f1"></div>
-
-            <div class="curtain-fold f2"></div>
-
-            <div class="curtain-fold f3"></div>
-
-        </div>
-
-
-        <div class="curtain right">
-
-            <div class="curtain-fold f1"></div>
-
-            <div class="curtain-fold f2"></div>
-
-            <div class="curtain-fold f3"></div>
-
-        </div>
-
-
-        <div class="stage-floor"></div>
-
-
-        <!-- 객석 -->
-
-        <div class="seat-area">
-
-            <div class="seats">
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-                <div class="seat"></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================
-             하트
-        ================================== -->
-
-        <div
-            id="heartRunner"
-            class="heart-runner">
-
-
-            <svg
-                class="heart-svg"
-                viewBox="0 0 120 110">
-
-
-                <defs>
-
-                    <linearGradient
-                        id="heartGradient"
-                        x1="0"
-                        y1="0"
-                        x2="1"
-                        y2="1">
-
-                        <stop
-                            offset="0%"
-                            stop-color="#ffb0c1"
-                        />
-
-                        <stop
-                            offset="55%"
-                            stop-color="#ff7695"
-                        />
-
-                        <stop
-                            offset="100%"
-                            stop-color="#e95078"
-                        />
-
-                    </linearGradient>
-
-                </defs>
-
-
-                <!-- 하나의 하트 -->
-
-                <path
-                    class="heart-body"
-                    d="
-                    M60 102
-                    C52 94 14 70 8 45
-                    C3 23 18 8 37 8
-                    C48 8 57 14 60 24
-                    C63 14 72 8 83 8
-                    C102 8 117 23 112 45
-                    C106 70 68 94 60 102
-                    Z
-                    "
-                />
-
-            </svg>
-
-
-            <!-- 모자 -->
-
-            <div class="magic-hat">
-
-                <div class="hat-crown"></div>
-
-                <div class="hat-band"></div>
-
-                <div class="hat-brim"></div>
-
-                <div class="hat-star">
-                    ★
-                </div>
-
-            </div>
-
-
-            <!-- 얼굴 -->
-
-            <div class="heart-face">
-
-                <div class="eye left"></div>
-
-                <div class="eye right"></div>
-
-                <div class="blush left"></div>
-
-                <div class="blush right"></div>
-
-                <div class="smile"></div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================
-             마녀
-        ================================== -->
-
-        <div
-            id="witch"
-            class="witch">
-
-
-            <div class="broom"></div>
-
-
-            <div class="witch-hair"></div>
-
-
-            <div class="witch-cape"></div>
-
-
-            <div class="witch-head">
-
-                <div class="witch-eye left"></div>
-
-                <div class="witch-eye right"></div>
-
-                <div class="witch-smile"></div>
-
-            </div>
-
-
-            <div class="witch-hat"></div>
-
-        </div>
-
-
-        <!-- 일반 메시지 -->
-
-        <div
-            id="message"
-            class="message">
-        </div>
-
-
-        <!-- 꽝 -->
-
-        <div
-            id="crashFlash"
-            class="crash-flash">
-
-            💥
-
-        </div>
-
-
-        <!-- 정답 -->
-
-        <div
-            id="victoryFlash"
-            class="victory-flash">
-
-            ✨⚡✨
-
-        </div>
-
-    </section>
-
-</div>
-
-
-<!-- =====================================
-     시작 화면
-===================================== -->
-
-<div
-    id="startOverlay"
-    class="overlay">
-
-
-    <div class="modal">
-
-
-        <div class="big-heart">
-
-            ❤️🎩
-
-        </div>
-
-
-        <h1>
-            하트의 계이름 오페라
-        </h1>
-
-
-        <p>
-
-            모자를 쓴 하트가<br>
-            오페라 무대에서 마녀와 대결해요!
-
-        </p>
-
-
-        <p>
-
-            🎵 음표를 보고 계이름을 맞히세요.<br>
-
-            ⚡ 정답 → 마녀 물리치기<br>
-
-            💥 오답 → 마녀와 꽝 충돌<br>
-
-            🏆 정답 5회 → 성공
-
-        </p>
-
-
-        <button
-            class="start-btn"
-            onclick="startGame()">
-
-            게임 시작!
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================
-     성공 화면
-===================================== -->
-
-<div
-    id="successOverlay"
-    class="overlay hidden">
-
-
-    <div class="modal">
-
-
-        <div class="success-heart">
-
-            ❤️
-
-        </div>
-
-
-        <h1>
-
-            🎉 성공! 🎉
-
-        </h1>
-
-
-        <p>
-
-            하트가 마녀들을 모두 물리치고<br>
-            오페라 무대를 정복했어요!
-
-        </p>
-
-
-        <p
-            style="
-            color:#d0526e;
-            font-size:22px;">
-
-            계이름을 완벽하게 읽었어요!
-
-        </p>
-
-
-        <button
-            class="start-btn"
-            onclick="restartGame()">
-
-            다시 도전!
-
-        </button>
-
-    </div>
-
-</div>
-
-
-<!-- =====================================
-     복습 화면
-===================================== -->
-
-<div
-    id="studyOverlay"
-    class="overlay hidden">
-
-
-    <div class="study-card">
-
-
-        <h1>
-
-            🌟 다장조 계이름 복습 🌟
-
-        </h1>
-
-
-        <div class="study-description">
-
-            높은음자리표
-
-        </div>
-
-
-        <div class="study-time">
-
-            <span id="studyTimer">
-                5
-            </span>
-
-            초 후 다시 시작합니다
-
-        </div>
-
-
-        <svg
-            class="study-staff"
-            viewBox="0 0 930 270">
-
-
-            <!-- 오선 -->
-
-            <line
-                class="study-line"
-                x1="90"
-                y1="65"
-                x2="900"
-                y2="65"
-            />
-
-            <line
-                class="study-line"
-                x1="90"
-                y1="90"
-                x2="900"
-                y2="90"
-            />
-
-            <line
-                class="study-line"
-                x1="90"
-                y1="115"
-                x2="900"
-                y2="115"
-            />
-
-            <line
-                class="study-line"
-                x1="90"
-                y1="140"
-                x2="900"
-                y2="140"
-            />
-
-            <line
-                class="study-line"
-                x1="90"
-                y1="165"
-                x2="900"
-                y2="165"
-            />
-
-
-            <!-- 높은음자리표 -->
-
-            <text
-                class="study-clef"
-                x="25"
-                y="171">
-
-                𝄞
-
-            </text>
-
-
-            <!-- 도 -->
-
-            <line
-                class="study-ledger"
-                x1="105"
-                y1="190"
-                x2="160"
-                y2="190"
-            />
-
-            <ellipse
-                class="study-note"
-                cx="132.5"
-                cy="190"
-                rx="13"
-                ry="9"
-                transform="
-                    rotate(-12 132.5 190)
-                "
-            />
-
-
-            <!-- 레 -->
-
-            <ellipse
-                class="study-note"
-                cx="245"
-                cy="177.5"
-                rx="13"
-                ry="9"
-                transform="
-                    rotate(-12 245 177.5)
-                "
-            />
-
-
-            <!-- 미 -->
-
-            <ellipse
-                class="study-note"
-                cx="350"
-                cy="165"
-                rx="13"
-                ry="9"
-                transform="
-                    rotate(-12 350 165)
-                "
-            />
-
-
-            <!-- 파 -->
-
-            <ellipse
-                class="study-note"
-                cx="455"
-                cy="152.5"
-                rx="13"
-                ry="9"
-                transform="
-                    rotate(-12 455 152.5)
-                "
-            />
-
-
-            <!-- 솔 -->
-
-            <ellipse
-                class="study-note"
-                cx="560"
+                id="note"
+                cx="95"
                 cy="140"
                 rx="13"
                 ry="9"
-                transform="
-                    rotate(-12 560 140)
-                "
-            />
-
-
-            <!-- 라 -->
-
-            <ellipse
-                class="study-note"
-                cx="665"
-                cy="127.5"
-                rx="13"
-                ry="9"
-                transform="
-                    rotate(-12 665 127.5)
-                "
-            />
-
-
-            <!-- 시 -->
-
-            <ellipse
-                class="study-note"
-                cx="770"
-                cy="115"
-                rx="13"
-                ry="9"
-                transform="
-                    rotate(-12 770 115)
-                "
-            />
-
-
-            <!-- 높은 도 -->
-
-            <ellipse
-                class="study-note"
-                cx="870"
-                cy="102.5"
-                rx="13"
-                ry="9"
-                transform="
-                    rotate(-12 870 102.5)
-                "
-            />
-
-
-            <!-- 계이름 -->
-
-            <text
-                class="study-label"
-                x="132"
-                y="230">
-                도
-            </text>
-
-            <text
-                class="study-label"
-                x="245"
-                y="230">
-                레
-            </text>
-
-            <text
-                class="study-label"
-                x="350"
-                y="230">
-                미
-            </text>
-
-            <text
-                class="study-label"
-                x="455"
-                y="230">
-                파
-            </text>
-
-            <text
-                class="study-label"
-                x="560"
-                y="230">
-                솔
-            </text>
-
-            <text
-                class="study-label"
-                x="665"
-                y="230">
-                라
-            </text>
-
-            <text
-                class="study-label"
-                x="770"
-                y="230">
-                시
-            </text>
-
-            <text
-                class="study-label"
-                x="870"
-                y="230">
-                높은 도
-            </text>
+                fill="#ffffff"
+                stroke="#111"
+                stroke-width="3"/>
 
 
         </svg>
 
+    </div>
 
-        <button
-            class="start-btn"
-            onclick="restartGame()">
 
-            다시 시작
+    <!-- =================================================
+         문제
+    ================================================= -->
 
+    <div class="question">
+
+        <div class="question-text">
+
+            이 음표의 계이름은?
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="message"
+        id="message">
+
+        게임을 시작해주세요!
+
+    </div>
+
+
+    <!-- =================================================
+         하트
+    ================================================= -->
+
+    <div
+        class="runner"
+        id="runner">
+
+        <div class="hat">
+
+            <div class="star">
+                ★
+            </div>
+
+        </div>
+
+        <div class="heart"></div>
+
+    </div>
+
+
+    <!-- =================================================
+         마녀
+    ================================================= -->
+
+    <div
+        class="witch"
+        id="witch">
+
+        <div class="witch-hat"></div>
+
+        <div class="witch-head">
+
+            <div
+                class="witch-eye left">
+            </div>
+
+            <div
+                class="witch-eye right">
+            </div>
+
+        </div>
+
+        <div class="witch-body"></div>
+
+        <div class="wand"></div>
+
+    </div>
+
+
+    <!-- 번개 -->
+
+    <div
+        class="lightning"
+        id="lightning">
+
+        ⚡
+
+    </div>
+
+
+    <!-- =================================================
+         정답 버튼
+    ================================================= -->
+
+    <div class="answer-buttons">
+
+        <button data-answer="도">
+            도
+        </button>
+
+        <button data-answer="레">
+            레
+        </button>
+
+        <button data-answer="미">
+            미
+        </button>
+
+        <button data-answer="파">
+            파
+        </button>
+
+        <button data-answer="솔">
+            솔
+        </button>
+
+        <button data-answer="라">
+            라
+        </button>
+
+        <button data-answer="시">
+            시
+        </button>
+
+        <button data-answer="높은 도">
+            높은 도
         </button>
 
     </div>
+
+
+    <!-- =================================================
+         결과
+    ================================================= -->
+
+    <div
+        class="overlay"
+        id="overlay">
+
+        <div
+            class="panel"
+            id="panel">
+        </div>
+
+    </div>
+
 
 </div>
 
 
 <script>
 
-/* =========================================
-   게임 상태
-========================================= */
+/* =====================================================
+   음계
 
-let currentNote = null;
-
-let score = 0;
-
-let wrongCount = 0;
-
-let gameRunning = false;
-
-let nextTimer = null;
-
-let witchTimer = null;
-
-let studyInterval = null;
-
-
-/* =========================================
-   정확한 다장조 높은음자리표
+   사진 기준으로 고정.
 
    오선:
-   첫째 줄 = 미
-   첫째 칸 = 파
-   둘째 줄 = 솔
-   둘째 칸 = 라
-   셋째 줄 = 시
-   셋째 칸 = 높은 도
+   65
+   80
+   95
+   110
+   125
 
-   오선 아래:
-   첫째 칸 = 레
-   첫째 덧줄 = 도
-========================================= */
+   도 = 140
+   레 = 132.5
+   미 = 125
+   파 = 117.5
+   솔 = 110
+   라 = 102.5
+   시 = 95
+   높은 도 = 87.5
+===================================================== */
 
 const NOTES = [
 
     {
         name: "도",
-        y: 150
+        y: 140
     },
 
     {
         name: "레",
-        y: 137.5
+        y: 132.5
     },
 
     {
@@ -3196,106 +1397,99 @@ const NOTES = [
 
     {
         name: "파",
-        y: 112.5
+        y: 117.5
     },
 
     {
         name: "솔",
-        y: 100
+        y: 110
     },
 
     {
         name: "라",
-        y: 87.5
+        y: 102.5
     },
 
     {
         name: "시",
-        y: 75
+        y: 95
     },
 
     {
         name: "높은 도",
-        y: 62.5
+        y: 87.5
     }
 
 ];
 
 
-/* =========================================
-   DOM
-========================================= */
+/* =====================================================
+   게임 상태
+===================================================== */
 
-const quizNote =
-    document.getElementById(
-        "quizNote"
-    );
+let currentNote = null;
 
-const quizLedger =
-    document.getElementById(
-        "quizLedger"
-    );
+let correctCount = 0;
 
-const answers =
-    document.getElementById(
-        "answers"
-    );
+let wrongCount = 0;
 
-const scoreText =
-    document.getElementById(
-        "score"
-    );
+let gameStarted = false;
 
-const heartRunner =
-    document.getElementById(
-        "heartRunner"
-    );
+
+/* =====================================================
+   HTML 요소
+===================================================== */
+
+const note =
+    document.getElementById("note");
+
+const ledger =
+    document.getElementById("ledger");
+
+const runner =
+    document.getElementById("runner");
 
 const witch =
-    document.getElementById(
-        "witch"
-    );
+    document.getElementById("witch");
+
+const lightning =
+    document.getElementById("lightning");
 
 const message =
-    document.getElementById(
-        "message"
-    );
+    document.getElementById("message");
 
-const crashFlash =
-    document.getElementById(
-        "crashFlash"
-    );
+const correctCountText =
+    document.getElementById("correctCount");
 
-const victoryFlash =
-    document.getElementById(
-        "victoryFlash"
-    );
+const wrongCountText =
+    document.getElementById("wrongCount");
 
-const startOverlay =
-    document.getElementById(
-        "startOverlay"
-    );
+const overlay =
+    document.getElementById("overlay");
 
-const successOverlay =
-    document.getElementById(
-        "successOverlay"
-    );
+const panel =
+    document.getElementById("panel");
 
-const studyOverlay =
-    document.getElementById(
-        "studyOverlay"
-    );
+const startScreen =
+    document.getElementById("startScreen");
 
-const studyTimer =
-    document.getElementById(
-        "studyTimer"
-    );
+const startButton =
+    document.getElementById("startButton");
 
 
-/* =========================================
-   게임 배경음
-   외부 파일 없이 Web Audio API
-========================================= */
+/* =====================================================
+   배경음악
+=====================================================
+
+   외부 mp3 파일을 사용하지 않는다.
+
+   Web Audio API로 간단한 피아노풍 음을 생성한다.
+
+   장점:
+   - GitHub에 음악 파일 업로드 필요 없음
+   - 아이폰에서도 같은 HTML 안에서 실행 가능
+   - 시작 버튼을 누른 사용자 동작 안에서 AudioContext 시작
+===================================================== */
 
 let audioContext = null;
 
@@ -3303,190 +1497,202 @@ let masterGain = null;
 
 let musicTimer = null;
 
-let musicStep = 0;
+let musicPlaying = false;
 
 
-const melody = [
+/* 코드 진행 */
 
-    261.63,
-    329.63,
-    392.00,
-    523.25,
+const chords = [
 
-    392.00,
-    329.63,
-    293.66,
-    329.63,
+    [261.63, 329.63, 392.00],
 
-    261.63,
-    329.63,
-    392.00,
-    659.25,
+    [196.00, 246.94, 293.66],
 
-    523.25,
-    392.00,
-    329.63,
-    261.63
+    [220.00, 277.18, 329.63],
+
+    [174.61, 220.00, 261.63]
 
 ];
 
 
-function playNote(
+/* 오디오 시작 */
+
+function startMusic() {
+
+    try {
+
+        if (!audioContext) {
+
+            const AudioContext =
+                window.AudioContext ||
+                window.webkitAudioContext;
+
+            audioContext =
+                new AudioContext();
+
+            masterGain =
+                audioContext.createGain();
+
+            masterGain.gain.value =
+                0.055;
+
+            masterGain.connect(
+                audioContext.destination
+            );
+        }
+
+
+        if (
+            audioContext.state ===
+            "suspended"
+        ) {
+
+            audioContext.resume();
+
+        }
+
+
+        if (!musicPlaying) {
+
+            musicPlaying = true;
+
+            playMusicLoop();
+
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Audio unavailable:",
+            error
+        );
+
+    }
+
+}
+
+
+/* 피아노풍 음 */
+
+function playTone(
     frequency,
-    duration = .65
+    duration,
+    startTime
 ) {
 
-    if (!audioContext) {
-        return;
-    }
+    if (!audioContext) return;
+
+
+    const osc =
+        audioContext.createOscillator();
+
+    const gain =
+        audioContext.createGain();
+
+
+    osc.type = "sine";
+
+    osc.frequency.value =
+        frequency;
+
+
+    gain.gain.setValueAtTime(
+        0.0001,
+        startTime
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.13,
+        startTime + 0.03
+    );
+
+
+    gain.gain.exponentialRampToValueAtTime(
+        0.0001,
+        startTime + duration
+    );
+
+
+    osc.connect(gain);
+
+    gain.connect(masterGain);
+
+
+    osc.start(startTime);
+
+    osc.stop(
+        startTime + duration + 0.05
+    );
+
+}
+
+
+/* 배경음 반복 */
+
+function playMusicLoop() {
+
+    if (
+        !musicPlaying ||
+        !audioContext
+    ) return;
 
 
     const now =
         audioContext.currentTime;
 
 
-    const oscillator =
-        audioContext.createOscillator();
+    chords.forEach(
+        (chord, index) => {
+
+            const time =
+                now + index * 1.5;
 
 
-    const gain =
-        audioContext.createGain();
+            /* 낮은 화음 */
+
+            playTone(
+                chord[0],
+                1.25,
+                time
+            );
 
 
-    oscillator.type =
-        "triangle";
+            /* 중간음 */
+
+            playTone(
+                chord[1],
+                1.15,
+                time + 0.18
+            );
 
 
-    oscillator.frequency.setValueAtTime(
-        frequency,
-        now
-    );
+            /* 높은음 */
 
-
-    gain.gain.setValueAtTime(
-        .0001,
-        now
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        .07,
-        now + .025
-    );
-
-
-    gain.gain.exponentialRampToValueAtTime(
-        .0001,
-        now + duration
-    );
-
-
-    oscillator.connect(gain);
-
-    gain.connect(
-        masterGain
-    );
-
-
-    oscillator.start(now);
-
-    oscillator.stop(
-        now + duration + .03
-    );
-}
-
-
-function startMusic() {
-
-    if (!audioContext) {
-
-        audioContext =
-            new (
-                window.AudioContext ||
-                window.webkitAudioContext
-            )();
-
-
-        masterGain =
-            audioContext.createGain();
-
-
-        masterGain.gain.value =
-            .45;
-
-
-        masterGain.connect(
-            audioContext.destination
-        );
-    }
-
-
-    if (
-        audioContext.state ===
-        "suspended"
-    ) {
-
-        audioContext.resume();
-
-    }
-
-
-    if (musicTimer) {
-        return;
-    }
-
-
-    musicStep = 0;
-
-
-    function loopMusic() {
-
-        if (!gameRunning) {
-            return;
-        }
-
-
-        const frequency =
-            melody[
-                musicStep %
-                melody.length
-            ];
-
-
-        playNote(
-            frequency,
-            .7
-        );
-
-
-        if (
-            musicStep % 4 === 0
-        ) {
-
-            playNote(
-                frequency / 2,
-                .9
+            playTone(
+                chord[2],
+                1.05,
+                time + 0.36
             );
 
         }
+    );
 
 
-        musicStep++;
+    musicTimer =
+        setTimeout(
+            playMusicLoop,
+            5800
+        );
 
-
-        musicTimer =
-            setTimeout(
-                loopMusic,
-                620
-            );
-    }
-
-
-    loopMusic();
 }
 
+
+/* 음악 정지 */
 
 function stopMusic() {
+
+    musicPlaying = false;
 
     if (musicTimer) {
 
@@ -3498,71 +1704,16 @@ function stopMusic() {
 
     }
 
-    musicStep = 0;
 }
 
 
-/* =========================================
-   게임 시작
-========================================= */
+/* =====================================================
+   문제 만들기
+===================================================== */
 
-function startGame() {
+function newQuestion() {
 
-    clearTimers();
-
-    stopMusic();
-
-
-    startOverlay.classList.add(
-        "hidden"
-    );
-
-    successOverlay.classList.add(
-        "hidden"
-    );
-
-    studyOverlay.classList.add(
-        "hidden"
-    );
-
-
-    score = 0;
-
-    wrongCount = 0;
-
-
-    scoreText.textContent =
-        "0";
-
-
-    gameRunning = true;
-
-
-    resetCharacters();
-
-
-    startMusic();
-
-
-    makeQuestion();
-}
-
-
-/* =========================================
-   문제 생성
-========================================= */
-
-function makeQuestion() {
-
-    if (!gameRunning) {
-        return;
-    }
-
-
-    resetCharacters();
-
-
-    const index =
+    const randomIndex =
         Math.floor(
             Math.random() *
             NOTES.length
@@ -3570,663 +1721,619 @@ function makeQuestion() {
 
 
     currentNote =
-        NOTES[index];
+        NOTES[randomIndex];
 
 
-    quizNote.setAttribute(
+    note.setAttribute(
         "cy",
         currentNote.y
     );
 
 
     /*
-       도일 때만 아래 덧줄
+      도일 때만 아래 덧줄.
     */
 
     if (
         currentNote.name === "도"
     ) {
 
-        quizLedger.style.display =
+        ledger.style.display =
             "block";
 
-
-        quizLedger.setAttribute(
+        ledger.setAttribute(
             "y1",
             currentNote.y
         );
 
-
-        quizLedger.setAttribute(
+        ledger.setAttribute(
             "y2",
             currentNote.y
         );
 
-    }
+    } else {
 
-    else {
-
-        quizLedger.style.display =
+        ledger.style.display =
             "none";
 
     }
 
-
-    createAnswers();
 }
 
 
-/* =========================================
-   보기 만들기
-========================================= */
+/* =====================================================
+   시작
+===================================================== */
 
-function createAnswers() {
+startButton.addEventListener(
+    "click",
+    function() {
 
-    answers.innerHTML =
-        "";
+        /*
+          이 클릭 이벤트 안에서
+          AudioContext를 시작한다.
+        */
 
+        startMusic();
 
-    let choices = [
-        currentNote.name
-    ];
+        gameStarted = true;
 
+        startScreen.style.display =
+            "none";
 
-    while (
-        choices.length < 4
-    ) {
+        message.textContent =
+            "음표를 보고 정답을 눌러주세요!";
 
-        const randomNote =
-            NOTES[
-                Math.floor(
-                    Math.random() *
-                    NOTES.length
-                )
-            ];
-
-
-        if (
-            !choices.includes(
-                randomNote.name
-            )
-        ) {
-
-            choices.push(
-                randomNote.name
-            );
-
-        }
+        newQuestion();
 
     }
+);
 
 
-    /*
-       보기 섞기
-    */
+/* =====================================================
+   답 버튼
+===================================================== */
 
-    for (
-        let i = choices.length - 1;
-        i > 0;
-        i--
-    ) {
-
-        const j =
-            Math.floor(
-                Math.random() *
-                (i + 1)
-            );
-
-
-        [
-            choices[i],
-            choices[j]
-        ] =
-        [
-            choices[j],
-            choices[i]
-        ];
-
-    }
-
-
-    choices.forEach(
-        choice => {
-
-            const button =
-                document.createElement(
-                    "button"
-                );
-
-
-            button.className =
-                "answer";
-
-
-            button.textContent =
-                choice;
-
-
-            button.onclick =
-                () =>
-                checkAnswer(
-                    choice,
-                    button
-                );
-
-
-            answers.appendChild(
-                button
-            );
-
-        }
+const answerButtons =
+    document.querySelectorAll(
+        ".answer-buttons button"
     );
-}
 
 
-/* =========================================
-   정답 검사
-========================================= */
+answerButtons.forEach(
+    function(button) {
 
-function checkAnswer(
-    answer,
-    button
-) {
+        button.addEventListener(
+            "click",
+            function() {
 
-    if (!gameRunning) {
-        return;
-    }
+                if (!gameStarted) {
+                    return;
+                }
 
 
-    document
-        .querySelectorAll(
-            ".answer"
-        )
-        .forEach(
-            item => {
+                const answer =
+                    this.dataset.answer;
 
-                item.disabled =
-                    true;
+
+                checkAnswer(answer);
 
             }
         );
 
+    }
+);
+
+
+/* =====================================================
+   정답 확인
+===================================================== */
+
+function checkAnswer(answer) {
+
+    if (!currentNote) {
+        return;
+    }
+
 
     if (
-        answer ===
-        currentNote.name
+        answer === currentNote.name
     ) {
 
-        button.classList.add(
-            "correct"
-        );
+        correct();
 
+    } else {
 
-        correctAnswer();
-
-    }
-
-    else {
-
-        button.classList.add(
-            "wrong"
-        );
-
-
-        wrongAnswer();
+        wrong();
 
     }
+
 }
 
 
-/* =========================================
+/* =====================================================
    정답
-   → 무조건 마녀를 물리침
-========================================= */
+===================================================== */
 
-function correctAnswer() {
+function correct() {
 
-    score++;
+    correctCount++;
 
-
-    scoreText.textContent =
-        score;
+    correctCountText.textContent =
+        correctCount;
 
 
-    showMessage(
-        "정답! 마녀를 물리쳤어요! ⚡"
-    );
+    message.textContent =
+        "정답! 마녀를 물리쳤어! ✨";
+
+
+    message.style.color =
+        "#b9ffad";
 
 
     /*
-       하트가 앞으로 공격
+      하트가 마녀에게 돌진.
     */
 
-    heartRunner.classList.remove(
-        "heart-attack"
-    );
+    runner.style.left =
+        "68%";
 
 
-    void heartRunner.offsetWidth;
+    setTimeout(
+        function() {
 
+            witch.style.transform =
+                "rotate(20deg) scale(.75)";
 
-    heartRunner.classList.add(
-        "heart-attack"
-    );
-
-
-    /*
-       마녀 등장 후
-       물리치는 연출
-    */
-
-    witch.classList.remove(
-        "crash"
-    );
-
-    witch.classList.remove(
-        "defeated"
-    );
-
-
-    void witch.offsetWidth;
-
-
-    witch.classList.add(
-        "defeated"
+        },
+        300
     );
 
 
     /*
-       승리 효과
-    */
-
-    victoryFlash.classList.remove(
-        "show"
-    );
-
-
-    void victoryFlash.offsetWidth;
-
-
-    victoryFlash.classList.add(
-        "show"
-    );
-
-
-    /*
-       5회 성공
+      5회 성공
     */
 
     if (
-        score >= 5
+        correctCount >= 5
     ) {
 
-        gameRunning =
-            false;
-
-
-        stopMusic();
-
-
         setTimeout(
-            () => {
-
-                successOverlay.classList.remove(
-                    "hidden"
-                );
-
-            },
-            900
+            showSuccess,
+            750
         );
-
 
         return;
     }
 
 
-    /*
-       다음 문제
-    */
+    setTimeout(
+        function() {
 
-    nextTimer =
-        setTimeout(
-            () => {
+            runner.style.left =
+                "6%";
 
-                makeQuestion();
+            witch.style.transform =
+                "scale(1)";
 
-            },
-            1050
-        );
+            message.style.color =
+                "white";
+
+            message.textContent =
+                "다음 음표!";
+
+            newQuestion();
+
+        },
+        850
+    );
+
 }
 
 
-/* =========================================
+/* =====================================================
    오답
-   → 무조건 마녀와 꽝 충돌
-========================================= */
+===================================================== */
 
-function wrongAnswer() {
+function wrong() {
 
     wrongCount++;
 
-
-    /*
-       하트 정지
-    */
-
-    heartRunner.classList.remove(
-        "jump"
-    );
+    wrongCountText.textContent =
+        wrongCount;
 
 
-    heartRunner.classList.remove(
-        "heart-attack"
-    );
+    message.textContent =
+        "오답! 마녀와 꽝! 💥";
+
+
+    message.style.color =
+        "#ffaaaa";
 
 
     /*
-       마녀 등장
+      번개 공격.
     */
 
-    witch.classList.remove(
-        "defeated"
-    );
-
-    witch.classList.remove(
-        "crash"
+    lightning.classList.remove(
+        "show"
     );
 
 
-    void witch.offsetWidth;
+    void lightning.offsetWidth;
 
 
-    /*
-       마녀가 하트에게 돌진
-    */
-
-    witch.classList.add(
-        "crash"
+    lightning.classList.add(
+        "show"
     );
 
 
     /*
-       실제 충돌 순간
+      하트와 마녀 충돌.
     */
+
+    runner.style.left =
+        "67%";
+
 
     setTimeout(
-        () => {
+        function() {
 
-            crashFlash.classList.remove(
-                "show"
-            );
-
-
-            void crashFlash.offsetWidth;
-
-
-            crashFlash.classList.add(
-                "show"
-            );
-
-
-            showMessage(
-                "꽝! 마녀와 충돌했어요! 💥"
-            );
+            witch.style.transform =
+                "rotate(-12deg) scale(1.1)";
 
         },
-        620
+        300
     );
 
 
     /*
-       실패 3회
+      3회 실패하면 복습.
     */
 
     if (
         wrongCount >= 3
     ) {
 
-        gameRunning =
-            false;
-
-
-        stopMusic();
-
-
         setTimeout(
-            () => {
-
-                showStudyScreen();
-
-            },
-            1450
+            showReview,
+            750
         );
-
 
         return;
     }
 
 
-    /*
-       실패했으면
-       충돌 후 다음 문제
-    */
+    setTimeout(
+        function() {
 
-    nextTimer =
-        setTimeout(
-            () => {
+            runner.style.left =
+                "6%";
 
-                resetCharacters();
+            witch.style.transform =
+                "scale(1)";
 
-                makeQuestion();
+            message.style.color =
+                "white";
 
-            },
-            1450
-        );
+            newQuestion();
+
+        },
+        1000
+    );
+
 }
 
 
-/* =========================================
-   캐릭터 초기화
-========================================= */
+/* =====================================================
+   성공
+===================================================== */
 
-function resetCharacters() {
+function showSuccess() {
 
-    witch.classList.remove(
-        "crash"
-    );
-
-    witch.classList.remove(
-        "defeated"
-    );
-
-
-    heartRunner.classList.remove(
-        "jump"
-    );
-
-    heartRunner.classList.remove(
-        "heart-attack"
-    );
-
-
-    crashFlash.classList.remove(
-        "show"
-    );
-
-    victoryFlash.classList.remove(
-        "show"
-    );
-}
-
-
-/* =========================================
-   메시지
-========================================= */
-
-function showMessage(text) {
-
-    message.textContent =
-        text;
-
-
-    message.classList.remove(
+    overlay.classList.add(
         "show"
     );
 
 
-    void message.offsetWidth;
+    panel.innerHTML = `
+
+        <div class="big-heart"></div>
+
+        <h2>
+            성공!
+        </h2>
+
+        <p>
+            하트가 모든 마녀를 물리쳤어! 🎉
+        </p>
+
+        <p>
+            정답
+            <strong>
+                ${correctCount}
+            </strong>
+            회
+        </p>
+
+        <button
+            class="restart"
+            onclick="restartGame()">
+
+            다시 시작
+
+        </button>
+    `;
+
+}
 
 
-    message.classList.add(
+/* =====================================================
+   복습
+===================================================== */
+
+function showReview() {
+
+    overlay.classList.add(
         "show"
     );
+
+
+    panel.innerHTML = `
+
+        <h2 style="
+            font-size:40px;
+            color:#d9436b;
+        ">
+
+            계이름 복습
+
+        </h2>
+
+        <p>
+            세 번 틀렸어.
+            아래 음계를 다시 확인해보자.
+        </p>
+
+
+        <div class="review-score">
+
+            <svg
+                viewBox="0 0 820 210">
+
+
+                <!-- 오선 -->
+
+                <g
+                    stroke="#111"
+                    stroke-width="2.5">
+
+                    <line
+                        x1="35"
+                        y1="65"
+                        x2="790"
+                        y2="65"/>
+
+                    <line
+                        x1="35"
+                        y1="80"
+                        x2="790"
+                        y2="80"/>
+
+                    <line
+                        x1="35"
+                        y1="95"
+                        x2="790"
+                        y2="95"/>
+
+                    <line
+                        x1="35"
+                        y1="110"
+                        x2="790"
+                        y2="110"/>
+
+                    <line
+                        x1="35"
+                        y1="125"
+                        x2="790"
+                        y2="125"/>
+
+                </g>
+
+
+                <!-- 높은음자리표 -->
+
+                <text
+                    x="38"
+                    y="126"
+                    font-family="Times New Roman, serif"
+                    font-size="104"
+                    fill="#111">
+
+                    𝄞
+
+                </text>
+
+
+                <!-- 도 -->
+
+                <line
+                    x1="70"
+                    y1="140"
+                    x2="120"
+                    y2="140"
+                    stroke="#111"
+                    stroke-width="2.5"/>
+
+                <ellipse
+                    cx="95"
+                    cy="140"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+
+                <!-- 레 -->
+
+                <ellipse
+                    cx="170"
+                    cy="132.5"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+
+                <!-- 미 -->
+
+                <ellipse
+                    cx="245"
+                    cy="125"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+
+                <!-- 파 -->
+
+                <ellipse
+                    cx="320"
+                    cy="117.5"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+
+                <!-- 솔 -->
+
+                <ellipse
+                    cx="395"
+                    cy="110"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+
+                <!-- 라 -->
+
+                <ellipse
+                    cx="470"
+                    cy="102.5"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+
+                <!-- 시 -->
+
+                <ellipse
+                    cx="545"
+                    cy="95"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+
+                <!-- 높은 도 -->
+
+                <ellipse
+                    cx="620"
+                    cy="87.5"
+                    rx="13"
+                    ry="9"
+                    fill="white"
+                    stroke="#111"
+                    stroke-width="3"/>
+
+            </svg>
+
+        </div>
+
+
+        <p>
+            도 · 레 · 미 · 파 · 솔 · 라 · 시 · 높은 도
+        </p>
+
+
+        <button
+            class="restart"
+            onclick="restartGame()">
+
+            다시 시작
+
+        </button>
+    `;
+
 }
 
 
-/* =========================================
-   복습 화면
-========================================= */
-
-function showStudyScreen() {
-
-    studyOverlay.classList.remove(
-        "hidden"
-    );
-
-
-    let time = 5;
-
-
-    studyTimer.textContent =
-        time;
-
-
-    studyInterval =
-        setInterval(
-            () => {
-
-                time--;
-
-
-                studyTimer.textContent =
-                    time;
-
-
-                if (
-                    time <= 0
-                ) {
-
-                    clearInterval(
-                        studyInterval
-                    );
-
-
-                    studyInterval =
-                        null;
-
-
-                    restartGame();
-
-                }
-
-            },
-            1000
-        );
-}
-
-
-/* =========================================
+/* =====================================================
    다시 시작
-========================================= */
+===================================================== */
 
 function restartGame() {
 
-    startGame();
+    correctCount = 0;
+
+    wrongCount = 0;
+
+
+    correctCountText.textContent =
+        "0";
+
+    wrongCountText.textContent =
+        "0";
+
+
+    runner.style.left =
+        "6%";
+
+
+    witch.style.transform =
+        "scale(1)";
+
+
+    lightning.classList.remove(
+        "show"
+    );
+
+
+    overlay.classList.remove(
+        "show"
+    );
+
+
+    message.textContent =
+        "음표를 보고 정답을 눌러주세요!";
+
+
+    message.style.color =
+        "white";
+
+
+    newQuestion();
+
 }
 
 
-/* =========================================
-   타이머 정리
-========================================= */
+/* =====================================================
+   페이지 처음 로딩
+===================================================== */
 
-function clearTimers() {
-
-    if (nextTimer) {
-
-        clearTimeout(
-            nextTimer
-        );
-
-        nextTimer = null;
-
-    }
-
-
-    if (witchTimer) {
-
-        clearTimeout(
-            witchTimer
-        );
-
-        witchTimer = null;
-
-    }
-
-
-    if (studyInterval) {
-
-        clearInterval(
-            studyInterval
-        );
-
-        studyInterval = null;
-
-    }
-}
-
-
-/* =========================================
-   키보드 1~4 지원
-========================================= */
-
-document.addEventListener(
-    "keydown",
-    event => {
-
-        if (!gameRunning) {
-            return;
-        }
-
-
-        const number =
-            Number(event.key);
-
-
-        if (
-            number >= 1 &&
-            number <= 4
-        ) {
-
-            const buttons =
-                document.querySelectorAll(
-                    ".answer"
-                );
-
-
-            if (
-                buttons[number - 1]
-            ) {
-
-                buttons[
-                    number - 1
-                ].click();
-
-            }
-
-        }
-
-    }
-);
+newQuestion();
 
 </script>
 
